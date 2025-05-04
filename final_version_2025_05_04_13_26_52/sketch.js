@@ -13,7 +13,7 @@ let locationOptions = [
   "Nişantaşı kafe",
   "Starbucks",
   "Aussie",
-  "Baia",
+  "Boston",
   "The Nook",
   "Kafkahve üsküdar"
 ];
@@ -41,6 +41,21 @@ function setup() {
   hayirX = width / 2 + 20;
   hayirY = height / 2 + 60;
   onaylaButtonBox = { x: width / 2 - 100, y: height / 2 + 180, w: 200, h: 50 };
+
+  // HTML datepicker and timepicker
+  let dateInput = createInput('');
+  dateInput.attribute('type', 'date');
+  dateInput.position(width / 2 - 100, height / 2 - 40);
+  dateInput.size(200, 40);
+  dateInput.input(datePicked);
+  dateInput.hide(); // Initially hidden
+  
+  let timeInput = createInput('');
+  timeInput.attribute('type', 'time');
+  timeInput.position(width / 2 - 100, height / 2 + 20);
+  timeInput.size(200, 40);
+  timeInput.input(timePicked);
+  timeInput.hide(); // Initially hidden
 }
 
 function draw() {
@@ -79,9 +94,10 @@ function draw() {
     text(`Seçilen Yer: ${selectedLocation}`, width / 2, height / 2 - 140);
     textSize(18);
 
-    drawInputBox(width / 2 - 100, height / 2 - 40, 200, 40, selectedDate, "YYYY-AA-GG", typingDate);
-    drawInputBox(width / 2 - 100, height / 2 + 20, 200, 40, selectedTime, "SS:DD", typingTime);
-    
+    // Show the date and time inputs after location is selected
+    select('input[type="date"]').show();
+    select('input[type="time"]').show();
+
     drawButton(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h, "Onayla");
   } else if (showConfirmation) {
     textSize(36);
@@ -112,15 +128,6 @@ function drawLocationOptions() {
   }
 }
 
-function drawInputBox(x, y, w, h, value, placeholder, active) {
-  fill(active ? '#FFFFFF' : '#FFD1DC');
-  rect(x, y, w, h, 10);
-  fill('#001f3f');
-  textAlign(LEFT, CENTER);
-  text(value || placeholder, x + 10, y + h / 2);
-  textAlign(CENTER, CENTER);
-}
-
 function mousePressed() {
   if (currentState === 0 && isMouseOver(width / 2 - 100, height / 2)) {
     currentState = 1;
@@ -137,39 +144,11 @@ function mousePressed() {
       }
     }
   } else if (showDateTimePicker) {
-    let dBox = { x: width / 2 - 100, y: height / 2 - 40, w: 200, h: 40 };
-    let tBox = { x: width / 2 - 100, y: height / 2 + 20, w: 200, h: 40 };
-
-    if (isMouseOver(dBox.x, dBox.y, dBox.w, dBox.h)) {
-      typingDate = true;
-      typingTime = false;
-    } else if (isMouseOver(tBox.x, tBox.y, tBox.w, tBox.h)) {
-      typingTime = true;
-      typingDate = false;
-    } else if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
+    if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
       if (selectedDate && selectedTime) {
         showConfirmation = true;
         sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
       }
-    } else {
-      typingDate = false;
-      typingTime = false;
-    }
-  }
-}
-
-function keyTyped() {
-  if (typingDate) {
-    if (keyCode === BACKSPACE || key === '\b') {
-      selectedDate = selectedDate.slice(0, -1);
-    } else {
-      selectedDate += key;
-    }
-  } else if (typingTime) {
-    if (keyCode === BACKSPACE || key === '\b') {
-      selectedTime = selectedTime.slice(0, -1);
-    } else {
-      selectedTime += key;
     }
   }
 }
@@ -189,6 +168,14 @@ function relocateHayir() {
 
   hayirX = newX;
   hayirY = newY;
+}
+
+function datePicked() {
+  selectedDate = this.value();
+}
+
+function timePicked() {
+  selectedTime = this.value();
 }
 
 function sendTelegramMessage(location, date, time) {
