@@ -22,11 +22,12 @@ let showLocationOptions = false;
 let showConfirmation = false;
 
 let showDateTimePicker = false;
-let selectedDate = null;
-let selectedTime = null;
+let selectedDate = "";
+let selectedTime = "";
 
-let dateInput, timeInput;
-let onaylaButton;
+let typingDate = false;
+let typingTime = false;
+let onaylaButtonBox;
 
 const botToken = '7776822734:AAFK1PyqJFLh8VaZgz7i2nJRk8WK3y0hJu0';
 const chatId = '7125445935'; 
@@ -39,16 +40,12 @@ function setup() {
   evetY = height / 2 + 60;
   hayirX = width / 2 + 20;
   hayirY = height / 2 + 60;
-
-  onaylaButton = createButton('Onayla');
-  onaylaButton.position(width / 2 - 100, height / 2 + 160);
-  onaylaButton.mousePressed(sendConfirmationMessage);
-  onaylaButton.hide();
+  onaylaButtonBox = { x: width / 2 - 100, y: height / 2 + 180, w: 200, h: 50 };
 }
 
 function draw() {
-  background('#001f3f'); // lacivert
-  fill('#FFD1DC'); // açık pembe
+  background('#001f3f');
+  fill('#FFD1DC');
   textSize(36);
 
   if (currentState === 0) {
@@ -79,26 +76,14 @@ function draw() {
     drawButton(width / 2 - 100, height / 2, btnWidth, btnHeight, "Seçim yap");
     showDateTimePicker = true;
   } else if (showDateTimePicker && selectedLocation) {
-    text(`Seçilen Yer: ${selectedLocation}`, width / 2, height / 2 - 100);
-    textSize(20);
-    text(`Tarih: ${selectedDate ? selectedDate : "Henüz seçilmedi"}`, width / 2, height / 2);
-    text(`Saat: ${selectedTime ? selectedTime : "Henüz seçilmedi"}`, width / 2, height / 2 + 40);
-    
-    if (!dateInput) {
-      dateInput = createInput();
-      dateInput.position(width / 2 - 100, height / 2 + 80);
-      dateInput.attribute('placeholder', 'YYYY-MM-DD');
-      dateInput.input(updateDate);
-    }
+    textSize(24);
+    text(`Seçilen Yer: ${selectedLocation}`, width / 2, height / 2 - 140);
+    textSize(18);
 
-    if (!timeInput) {
-      timeInput = createInput();
-      timeInput.position(width / 2 - 100, height / 2 + 120);
-      timeInput.attribute('placeholder', 'HH:MM');
-      timeInput.input(updateTime);
-    }
+    drawInputBox(width / 2 - 100, height / 2 - 40, 200, 40, selectedDate, "YYYY-AA-GG", typingDate);
+    drawInputBox(width / 2 - 100, height / 2 + 20, 200, 40, selectedTime, "SS:DD", typingTime);
     
-    onaylaButton.show();
+    drawButton(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h, "Onayla");
   }
 }
 
@@ -125,6 +110,15 @@ function drawLocationOptions() {
   }
 }
 
+function drawInputBox(x, y, w, h, value, placeholder, active) {
+  fill(active ? '#FFFFFF' : '#FFD1DC');
+  rect(x, y, w, h, 10);
+  fill('#001f3f');
+  textAlign(LEFT, CENTER);
+  text(value || placeholder, x + 10, y + h / 2);
+  textAlign(CENTER, CENTER);
+}
+
 function mousePressed() {
   if (currentState === 0 && isMouseOver(width / 2 - 100, height / 2)) {
     currentState = 1;
@@ -139,11 +133,39 @@ function mousePressed() {
         selectedLocation = locationOptions[i];
       }
     }
-  } else if (showDateTimePicker && selectedLocation) {
-    if (selectedDate && selectedTime) {
-      sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
+  } else if (showDateTimePicker) {
+    let dBox = { x: width / 2 - 100, y: height / 2 - 40, w: 200, h: 40 };
+    let tBox = { x: width / 2 - 100, y: height / 2 + 20, w: 200, h: 40 };
+
+    if (isMouseOver(dBox.x, dBox.y, dBox.w, dBox.h)) {
+      typingDate = true;
+      typingTime = false;
+    } else if (isMouseOver(tBox.x, tBox.y, tBox.w, tBox.h)) {
+      typingTime = true;
+      typingDate = false;
+    } else if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
+      if (selectedDate && selectedTime) {
+        sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
+      }
     } else {
-      //alert("Tarih ve saat seçmelisiniz!");
+      typingDate = false;
+      typingTime = false;
+    }
+  }
+}
+
+function keyTyped() {
+  if (typingDate) {
+    if (keyCode === BACKSPACE || key === '\b') {
+      selectedDate = selectedDate.slice(0, -1);
+    } else {
+      selectedDate += key;
+    }
+  } else if (typingTime) {
+    if (keyCode === BACKSPACE || key === '\b') {
+      selectedTime = selectedTime.slice(0, -1);
+    } else {
+      selectedTime += key;
     }
   }
 }
@@ -165,30 +187,14 @@ function relocateHayir() {
   hayirY = newY;
 }
 
-function updateDate() {
-  selectedDate = dateInput.value();
-}
-
-function updateTime() {
-  selectedTime = timeInput.value();
-}
-
-function sendConfirmationMessage() {
-  if (selectedDate && selectedTime) {
-    sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
-  } else {
-    //alert("Tarih ve saat seçmelisiniz!");
-  }
-}
-
 function sendTelegramMessage(location, date, time) {
   const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
   const message = `Buluşma Yeriniz: ${location}\nTarih: ${date}\nSaat: ${time}`;
-
   const url = `${telegramApiUrl}?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
   fetch(url)
-    .then(response => response.json())
-    .then(data => console.log('Message sent:', data))
-    .catch(error => console.error('Error sending message:', error));
+    .then(res => res.json())
+    .then(data => console.log('Mesaj gönderildi:', data))
+    .catch(err => console.error('Hata:', err));
 }
+
