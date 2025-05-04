@@ -13,7 +13,7 @@ let locationOptions = [
   "Nişantaşı kafe",
   "Starbucks",
   "Aussie",
-  "Baia",
+  "Boston",
   "The Nook",
   "Kafkahve üsküdar"
 ];
@@ -41,6 +41,17 @@ function setup() {
   hayirX = width / 2 + 20;
   hayirY = height / 2 + 60;
   onaylaButtonBox = { x: width / 2 - 100, y: height / 2 + 180, w: 200, h: 50 };
+
+
+  let dateInput = createInput();
+  dateInput.attribute('type', 'date');
+  dateInput.position(width / 2 - 100, height / 2 - 40);
+  dateInput.input(handleDateChange);
+
+  let timeInput = createInput();
+  timeInput.attribute('type', 'time');
+  timeInput.position(width / 2 - 100, height / 2 + 20);
+  timeInput.input(handleTimeChange);
 }
 
 function draw() {
@@ -80,9 +91,13 @@ function draw() {
     text(`Seçilen Yer: ${selectedLocation}`, width / 2, height / 2 - 140);
     textSize(18);
 
-    drawDateTimePicker();
+    text(`Tarih: ${selectedDate}`, width / 2, height / 2 - 40);
+    text(`Saat: ${selectedTime}`, width / 2, height / 2 + 40);
     
     drawButton(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h, "Onayla");
+  } else if (currentState === 3) {
+
+    text("Mesaj alındı!", width / 2, height / 2);
   }
 }
 
@@ -109,27 +124,6 @@ function drawLocationOptions() {
   }
 }
 
-function drawDateTimePicker() {
-  fill('#FFD1DC');
-  rect(width / 2 - 100, height / 2 - 40, 200, 40, 10);
-  fill('#001f3f');
-  textAlign(LEFT, CENTER);
-  text("Tarih: " + selectedDate, width / 2 - 90, height / 2 - 40 + 20);
-  
-  let datePicker = createInput(selectedDate, "date");
-  datePicker.position(width / 2 - 100, height / 2 - 40);
-  datePicker.size(200, 30);
-  datePicker.input(() => selectedDate = datePicker.value());
-
-  rect(width / 2 - 100, height / 2 + 20, 200, 40, 10);
-  text("Saat: " + selectedTime, width / 2 - 90, height / 2 + 20 + 20);
-  
-  let timePicker = createInput(selectedTime, "time");
-  timePicker.position(width / 2 - 100, height / 2 + 20);
-  timePicker.size(200, 30);
-  timePicker.input(() => selectedTime = timePicker.value());
-}
-
 function mousePressed() {
   if (currentState === 0 && isMouseOver(width / 2 - 100, height / 2)) {
     currentState = 1;
@@ -144,16 +138,22 @@ function mousePressed() {
         selectedLocation = locationOptions[i];
       }
     }
-  } else if (showDateTimePicker) {
-    if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
-      if (selectedDate && selectedTime) {
-        sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
-      }
+  } else if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
+    if (selectedDate && selectedTime) {
+
+      currentState = 3; 
+      sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
     }
   }
 }
 
-function keyTyped() {}
+function handleDateChange() {
+  selectedDate = this.value();
+}
+
+function handleTimeChange() {
+  selectedTime = this.value();
+}
 
 function isMouseOver(x, y, w = btnWidth, h = btnHeight) {
   return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
