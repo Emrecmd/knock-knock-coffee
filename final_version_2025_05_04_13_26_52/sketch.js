@@ -13,7 +13,7 @@ let locationOptions = [
   "Nişantaşı kafe",
   "Starbucks",
   "Aussie",
-  "Boston",
+  "Baia",
   "The Nook",
   "Kafkahve üsküdar"
 ];
@@ -42,7 +42,7 @@ function setup() {
   hayirY = height / 2 + 60;
   onaylaButtonBox = { x: width / 2 - 100, y: height / 2 + 180, w: 200, h: 50 };
 
-
+  // Datepicker ve timepicker inputlarını HTML'den ekleyelim.
   let dateInput = createInput();
   dateInput.attribute('type', 'date');
   dateInput.position(width / 2 - 100, height / 2 - 40);
@@ -95,9 +95,6 @@ function draw() {
     text(`Saat: ${selectedTime}`, width / 2, height / 2 + 40);
     
     drawButton(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h, "Onayla");
-  } else if (currentState === 3) {
-
-    text("Mesaj alındı!", width / 2, height / 2);
   }
 }
 
@@ -140,8 +137,6 @@ function mousePressed() {
     }
   } else if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
     if (selectedDate && selectedTime) {
-
-      currentState = 3; 
       sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
     }
   }
