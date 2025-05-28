@@ -30,8 +30,8 @@ let typingDate = false;
 let typingTime = false;
 let onaylaButtonBox;
 
-const botToken = '7776822734:AAFK1PyqJFLh8VaZgz7i2nJRk8WK3y0hJu0';
-const chatId = '7125445935';
+const botToken = process.env.BOT_TOKEN;
+const chatId = process.env.CHAT_ID;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -80,7 +80,7 @@ function draw() {
       relocateHayir();
     }
   } else if (showMessage && !showLocationOptions) {
-    text("Tarih ve saat bana mesaj olarak döner. Şimdi bir yer seç:", width / 2, height / 2 - 160);
+    //text("Tarih ve saat bana mesaj olarak döner. Şimdi bir yer seç:", width / 2, height / 2 - 160);//satır komple silinecek
     showLocationOptions = true;
   }
 
@@ -101,7 +101,7 @@ function draw() {
 
     if (telegramSuccess) {
       textSize(20);
-      fill('#7FFF00');
+      fill('#FFD1DC');
       text("Bilgiler gönderildi!", width / 2, onaylaButtonBox.y + 80);
     }
   } else if (showConfirmation) {
