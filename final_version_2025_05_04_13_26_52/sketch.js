@@ -30,10 +30,11 @@ let typingDate = false;
 let typingTime = false;
 let onaylaButtonBox;
 
+/*
 const botToken = process.env.BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 const botToken = process.env.BOT_TOKEN;
-const chatId = process.env.CHAT_ID;
+const chatId = process.env.CHAT_ID;*/
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
