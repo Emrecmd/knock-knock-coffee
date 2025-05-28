@@ -32,6 +32,8 @@ let onaylaButtonBox;
 
 const botToken = process.env.BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
+const botToken = process.env.BOT_TOKEN;
+const chatId = process.env.CHAT_ID;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -184,17 +186,25 @@ function timePicked() {
 }
 
 function sendTelegramMessage(location, date, time) {
-  const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  const message = `Buluşma Yeriniz: ${location}\nTarih: ${date}\nSaat: ${time}`;
-
-  fetch(`${telegramApiUrl}?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("Mesaj gönderildi:", data);
-        telegramSuccess = true;
+  fetch("/api/sendMessage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ location, date, time })
+  })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          telegramSuccess = true;
+          console.log("Telegram mesajı gönderildi.");
+        } else {
+          telegramSuccess = false;
+          console.error("Telegram mesaj hatası:", data.error);
+        }
       })
-      .catch(error => {
-        console.error("Telegram mesajı gönderilemedi:", error);
+      .catch((err) => {
         telegramSuccess = false;
+        console.error("İstek gönderilemedi:", err);
       });
 }
