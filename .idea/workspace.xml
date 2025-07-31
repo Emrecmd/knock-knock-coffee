@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55920d2-9be4-4036-8028-072877554c0b" name="Changes" comment="" />
+    <list default="true" id="f55920d2-9be4-4036-8028-072877554c0b" name="Changes" comment="sendMessage dosyası api klasörüyle beraber root dizinine taşındı">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_version_2025_05_04_13_26_52/sketch.js" beforeDir="false" afterPath="$PROJECT_DIR$/final_version_2025_05_04_13_26_52/sketch.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +56,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/USER/IdeaProjects/knock-knock-coffee",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,8 +77,28 @@
       <workItem from="1747501272198" duration="628000" />
       <workItem from="1748099012610" duration="601000" />
       <workItem from="1748444685457" duration="1757000" />
-      <workItem from="1748530482487" duration="1659000" />
+      <workItem from="1748530482487" duration="2690000" />
+      <workItem from="1748701137579" duration="123000" />
+      <workItem from="1749055875768" duration="128000" />
+      <workItem from="1753992700834" duration="33000" />
     </task>
+    <task id="LOCAL-00001" summary="sendMessage dosyası root dizinine taşındı">
+      <option name="closed" value="true" />
+      <created>1748534635019</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748534635019</updated>
+    </task>
+    <task id="LOCAL-00002" summary="sendMessage dosyası api klasörüyle beraber root dizinine taşındı">
+      <option name="closed" value="true" />
+      <created>1748534874048</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748534874048</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -82,5 +106,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="sendMessage dosyası root dizinine taşındı" />
+    <MESSAGE value="sendMessage dosyası api klasörüyle beraber root dizinine taşındı" />
+    <option name="LAST_COMMIT_MESSAGE" value="sendMessage dosyası api klasörüyle beraber root dizinine taşındı" />
   </component>
 </project>

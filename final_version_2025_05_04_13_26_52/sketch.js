@@ -15,7 +15,8 @@ let locationOptions = [
   "Aussie",
   "Boston",
   "The Nook",
-  "Kafkahve üsküdar"
+  "Kafkahve üsküdar",
+  "The Stock"
 ];
 let selectedLocation = null;
 let showLocationOptions = false;
