@@ -3,12 +3,12 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: "Only POST allowed" });
     }
 
-    const { location, date, time } = req.body;
+    const { location, date, time, contact } = req.body; // 🔥 contact eklendi
 
     const botToken = process.env.BOT_TOKEN;
     const chatId = process.env.CHAT_ID;
 
-    const message = `Buluşma Yeriniz: ${location}\nTarih: ${date}\nSaat: ${time}`;
+    const message = `Buluşma Yeriniz: ${location}\nTarih: ${date}\nSaat: ${time}\nİletişim: ${contact}`; // 🔥 contact mesajda
 
     try {
         const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

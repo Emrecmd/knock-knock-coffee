@@ -31,6 +31,9 @@ let typingDate = false;
 let typingTime = false;
 let onaylaButtonBox;
 
+let contactInput;       // 🔥 yeni eklenen input
+let contactInfo = "";   // 🔥 yeni eklenen değer
+
 /*
 const botToken = process.env.BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
@@ -60,6 +63,14 @@ function setup() {
   timeInput.size(200, 40);
   timeInput.input(timePicked);
   timeInput.hide();
+
+  // 🔥 iletişim bilgisi input
+  contactInput = createInput('');
+  contactInput.attribute('placeholder', 'Instagram / Telefon');
+  contactInput.position(width / 2 - 100, height / 2 + 80);
+  contactInput.size(200, 40);
+  contactInput.input(contactPicked);
+  contactInput.hide();
 }
 
 function draw() {
@@ -84,7 +95,6 @@ function draw() {
       relocateHayir();
     }
   } else if (showMessage && !showLocationOptions) {
-    //text("Tarih ve saat bana mesaj olarak döner. Şimdi bir yer seç:", width / 2, height / 2 - 160);//satır komple silinecek
     showLocationOptions = true;
   }
 
@@ -95,11 +105,12 @@ function draw() {
     drawButton(width / 2 - 100, height / 2, btnWidth, btnHeight, "Seçim yap");
   } else if (showDateTimePicker && selectedLocation) {
     textSize(24);
-    text(`Seçilen Yer: ${selectedLocation}`, width / 2, height / 2 - 140);
+    text(`Seçilen Yer: ${selectedLocation}`, width / 2, height / 2 - 180);
     textSize(18);
 
     select('input[type="date"]').show();
     select('input[type="time"]').show();
+    contactInput.show();   // 🔥 iletişim inputunu gösteriyoruz
 
     drawButton(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h, "Onayla");
 
@@ -154,9 +165,9 @@ function mousePressed() {
     }
   } else if (showDateTimePicker) {
     if (isMouseOver(onaylaButtonBox.x, onaylaButtonBox.y, onaylaButtonBox.w, onaylaButtonBox.h)) {
-      if (selectedDate && selectedTime) {
+      if (selectedDate && selectedTime && contactInfo) {   // 🔥 iletişim de zorunlu
         showConfirmation = true;
-        sendTelegramMessage(selectedLocation, selectedDate, selectedTime);
+        sendTelegramMessage(selectedLocation, selectedDate, selectedTime, contactInfo);
       }
     }
   }
@@ -187,13 +198,17 @@ function timePicked() {
   selectedTime = this.value();
 }
 
-function sendTelegramMessage(location, date, time) {
+function contactPicked() {   // 🔥 iletişim inputu event
+  contactInfo = this.value();
+}
+
+function sendTelegramMessage(location, date, time, contact) {   // 🔥 contact parametresi
   fetch("/api/sendMessage", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ location, date, time })
+    body: JSON.stringify({ location, date, time, contact })   // 🔥 contact gönderiliyor
   })
       .then((res) => res.json())
       .then((data) => {
