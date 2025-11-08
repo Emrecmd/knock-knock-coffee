@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f55920d2-9be4-4036-8028-072877554c0b" name="Changes" comment="sendMessage dosyası api klasörüyle beraber root dizinine taşındı">
+    <list default="true" id="f55920d2-9be4-4036-8028-072877554c0b" name="Changes" comment="iletişim bölümü eklendi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final_version_2025_05_04_13_26_52/api/sendMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/final_version_2025_05_04_13_26_52/api/sendMessage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final_version_2025_05_04_13_26_52/sketch.js" beforeDir="false" afterPath="$PROJECT_DIR$/final_version_2025_05_04_13_26_52/sketch.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +52,7 @@
     &quot;Node.js.sketch.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -76,6 +75,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -92,6 +99,8 @@
       <workItem from="1748701137579" duration="123000" />
       <workItem from="1749055875768" duration="128000" />
       <workItem from="1753992700834" duration="33000" />
+      <workItem from="1757082299199" duration="37000" />
+      <workItem from="1759492441129" duration="57000" />
     </task>
     <task id="LOCAL-00001" summary="sendMessage dosyası root dizinine taşındı">
       <option name="closed" value="true" />
@@ -109,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748534874048</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="iletişim bölümü eklendi">
+      <option name="closed" value="true" />
+      <created>1755422970203</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1755422970203</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +136,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="sendMessage dosyası root dizinine taşındı" />
     <MESSAGE value="sendMessage dosyası api klasörüyle beraber root dizinine taşındı" />
-    <option name="LAST_COMMIT_MESSAGE" value="sendMessage dosyası api klasörüyle beraber root dizinine taşındı" />
+    <MESSAGE value="iletişim bölümü eklendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="iletişim bölümü eklendi" />
   </component>
 </project>
