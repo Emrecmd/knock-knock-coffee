@@ -9,14 +9,14 @@ let evetX, evetY, hayirX, hayirY;
 let btnWidth = 200;
 let btnHeight = 60;
 let locationOptions = [
-  "Expo göl kenarı kafe",
-  "Nişantaşı kafe",
-  "Starbucks",
-  "Aussie",
-  "Boston",
-  "The Nook",
-  "Kafkahve üsküdar",
-  "The Stock"
+    "Arabica",
+    "Luuq",
+    "Laos",
+    "Mackbear",
+    "Gloria Jeans",
+    "Harput Dibek",
+    "Beyoğlu",
+    "Happy Moon's"
 ];
 let selectedLocation = null;
 let showLocationOptions = false;
