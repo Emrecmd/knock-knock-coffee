@@ -9,14 +9,14 @@ let evetX, evetY, hayirX, hayirY;
 let btnWidth = 200;
 let btnHeight = 60;
 let locationOptions = [
-    "Arabica",
+    "Üsküdar",
     "Luuq",
-    "Laos",
-    "Mackbear",
-    "Gloria Jeans",
-    "Harput Dibek",
-    "Beyoğlu",
-    "Happy Moon's"
+    "Doca",
+    "Aussie",
+    "Starbucks",
+    "The Stock",
+    "Nook",
+    "Bonavias"
 ];
 let selectedLocation = null;
 let showLocationOptions = false;
@@ -31,11 +31,6 @@ let typingDate = false;
 let typingTime = false;
 let onaylaButtonBox;
 
-/*
-const botToken = process.env.BOT_TOKEN;
-const chatId = process.env.CHAT_ID;
-const botToken = process.env.BOT_TOKEN;
-const chatId = process.env.CHAT_ID;*/
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -84,7 +79,6 @@ function draw() {
       relocateHayir();
     }
   } else if (showMessage && !showLocationOptions) {
-    //text("Tarih ve saat bana mesaj olarak döner. Şimdi bir yer seç:", width / 2, height / 2 - 160);//satır komple silinecek
     showLocationOptions = true;
   }
 
